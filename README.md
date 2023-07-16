@@ -67,4 +67,4 @@ go-gin을 공부할것입니다.
         }
    ```
 
-4. `localhost:8080/index`에 접속하면 html파일이 잘 로드 된다.
+4. 파일을 실행 후 `localhost:8080/index`에 접속하면 html파일이 잘 로드 된다.
