@@ -26,7 +26,7 @@ go-gin을 공부할것입니다.
        }
    ```
 
-4. `go run 파일명.go`명령어로 서버를 실행시키고 web브라우저에서 `http://localhost:8080/`에 접속하면 서버를 확인할 수 있다.
+4. `go run 파일명.go`명령어로 서버를 실행시키고 web브라우저에서 `http://localhost:8080/ping`에 접속하면 서버를 확인할 수 있다.
 
 ### HTML랜더링
 
@@ -67,4 +67,4 @@ go-gin을 공부할것입니다.
         }
    ```
 
-4. localhost:8080/index에 접속하면 html파일이 잘 로드 된다.
+4. `localhost:8080/index`에 접속하면 html파일이 잘 로드 된다.
