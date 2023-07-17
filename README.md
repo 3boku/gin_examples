@@ -68,3 +68,97 @@ go-gin을 공부할것입니다.
    ```
 
 4. 파일을 실행 후 `localhost:8080/index`에 접속하면 html파일이 잘 로드 된다.
+
+## 2일차
+
+### 각 파일마다 라우팅 설정
+
+**필자는 login.html파일과 post.html파일을 만들었다 그 코드들은 다음과 같다**
+
+```html
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>login</title>
+    </head>
+    <body>
+        아이디 입력:
+        <input type="id" />
+        <br />
+        비밀번호 입력:
+        <input type="pw" />
+    </body>
+</html>
+```
+
+> login.html
+
+```html
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>포스트</title>
+    </head>
+    <body>
+        <div style="width: 500px; height: 500px; border: 1px solid black">
+            <p style="font-size: 60px">이것은 이미지임</p>
+        </div>
+        <h4>이것은 제목임</h4>
+        <p>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Ad,
+            asperiores aut obcaecati illo molestias consectetur ratione dolor
+            provident odio amet, cupiditate voluptatem quas, totam quos fugiat
+            rem pariatur minus voluptates.
+        </p>
+    </body>
+</html>
+```
+
+> post.html
+
+1. 여러개의 html파일을 로드할려면 `LoadHTMLFiles`를 사용해야한다.
+
+2. ```go
+   package main
+
+   import (
+       "net/http"
+
+       "github.com/gin-gonic/gin"
+   )
+
+
+   func main() {
+       router := gin.Default()
+       router.LoadHTMLFiles("templates/index.html", "templates/login.html", "templates/post.html")
+       //templates/index.html templates/login.html, templates/post.html파일들을 로드해온다.
+
+       router.GET("/", func(c *gin.Context) {
+           c.HTML(http.StatusOK, "index.html", gin.H{
+           "title": "Main website",
+           })
+       })// 기본라우터에 index.html파일을 로드해온다.
+
+       router.GET("/login", func(c *gin.Context) {
+           c.HTML(http.StatusOK, "login.html", gin.H{
+           "title": "login website",
+           })
+       })// /login라우터에 login.html파일을 로드해온다.
+
+       router.GET("/post", func(c *gin.Context) {
+           c.HTML(http.StatusOK, "post.html", gin.H{
+           "title": "login website",
+           })
+       })// /post라우터에 post.html파일을 로드해온다.
+
+       router.Run(":8080") //8080포트에서 서버를 실행한다.
+       }
+   ```
+
+    이렇게 코드를 작성했다.
+
+3. `localhost:8080/post`, `localhost:8080/login`, `localhost:8080/`에 접속해보면 html파일이 잘 로드된다.
