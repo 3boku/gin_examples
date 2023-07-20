@@ -10,7 +10,7 @@ func setRouter(router *gin.Engine) {
 	router.GET("/", func(c *gin.Context) {
 		c.HTML(http.StatusOK, "index.html", gin.H{
 			"title": "메인페이지",
-			"url":   "/login",
+			"url":   "/index",
 		})
 	})
 

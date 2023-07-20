@@ -162,3 +162,56 @@ go-gin을 공부할것입니다.
     이렇게 코드를 작성했다.
 
 3. `localhost:8080/post`, `localhost:8080/login`, `localhost:8080/`에 접속해보면 html파일이 잘 로드된다.
+
+## 3일차
+
+### 라우터 html파일 이동하기
+
+> > 우선 html 코드들을 이렇게 수정했다.
+
+```html
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Mainpage</title>
+    </head>
+    <body>
+        <h1>메인페이지</h1>
+        <a href="{{.url}}">로그인페이지로 이동</a>
+    </body>
+</html>
+```
+
+> > index.html
+
+1. setUouter 함수를 선언해서 라우터들을 만든다.
+
+```go
+func setRouter(router *gin.Engine) {
+ router.GET("/", func(c *gin.Context) {// "/"에서 index.html파일을 로드해온다. 그리고 json파일을 보낸다.
+  c.HTML(http.StatusOK, "index.html", gin.H{
+   "title": "메인페이지",
+   "url":   "/index",
+  })
+ })
+
+ router.GET("/login", func(c *gin.Context) {// "/login"에서 login.html파일을 로드해온다. 그리고 json파일을 보낸다.
+  c.HTML(http.StatusOK, "login.html", gin.H{
+   "content": "login",
+  })
+ })
+}
+```
+
+2. 메인함수를 만들어서 실행시킬 수 있게 한다.
+
+```go
+func main() {
+ router := gin.Default() //gin 기본 라우터 생성
+ router.LoadHTMLGlob("templates/*.html")//templates폴더에 있는 html파일들 가져오기
+ setRouter(router)//위에 있는 setRouter함수 실행
+ _ = router.Run(":8080")// 8080포트에서 서버 실행
+}
+```
