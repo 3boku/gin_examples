@@ -215,3 +215,40 @@ func main() {
  _ = router.Run(":8080")// 8080포트에서 서버 실행
 }
 ```
+
+## 4일차
+
+### gin에서 정적파일 로드하기
+
+우선 templates 폴더안에 public이란 폴더를 만들어서 css파일과 이미지 파일을 추가해보겠다
+
+```css
+h1 {
+    color: red;
+}
+```
+
+> > style.css
+
+```html
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Mainpage</title>
+        <link rel="stylesheet" href="/templates/public/style.css" />
+    </head>
+    <body>
+        <h1>메인페이지</h1>
+        <a href="{{.url}}">로그인페이지로 이동</a>
+        <img src="/templates/public/hjs로고-하양.png" alt="hjs로고이미지" />
+    </body>
+</html>
+```
+
+> > index.html
+
+이렇게 수정하였다.
+
+1. gin프레임워크에서 정적파일을 로드할땐 3개의 함수가 필요한데  `변수명.Static()`, `변수명.StaticFS()`, `변수명.StaticFile()`이라는 함수가 있다.
